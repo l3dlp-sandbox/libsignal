@@ -1,3 +1,2 @@
-v0.102.1
+v0.102.2
 
-- Allow unknown chunks in webp sanitization
