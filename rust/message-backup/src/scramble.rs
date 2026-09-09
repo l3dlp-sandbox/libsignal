@@ -496,6 +496,7 @@ impl Visit<Scrambler> for proto::Contact {
             keyTransparencyData,
             registration,
             nickname,
+            sharedName,
             systemGivenName,
             systemFamilyName,
             systemNickname,
@@ -539,6 +540,7 @@ impl Visit<Scrambler> for proto::Contact {
         }
 
         nickname.accept(visitor);
+        sharedName.accept(visitor);
         systemGivenName.randomize(&mut visitor.rng);
         systemFamilyName.randomize(&mut visitor.rng);
         systemNickname.randomize(&mut visitor.rng);
@@ -1138,6 +1140,9 @@ impl Visit<Scrambler> for proto::ContactAttachment {
             address,
             avatar,
             organization,
+            aci,
+            nickname,
+            note,
             special_fields: _,
         } = self;
         name.accept(visitor);
@@ -1146,6 +1151,21 @@ impl Visit<Scrambler> for proto::ContactAttachment {
         address.accept(visitor);
         avatar.accept(visitor);
         organization.randomize(&mut visitor.rng);
+        visitor.replace_service_id(aci);
+        nickname.accept(visitor);
+        note.randomize(&mut visitor.rng);
+    }
+}
+
+impl Visit<Scrambler> for proto::contact_attachment::SignalNickname {
+    fn accept(&mut self, visitor: &mut Scrambler) {
+        let Self {
+            given,
+            family,
+            special_fields: _,
+        } = self;
+        given.randomize(&mut visitor.rng);
+        family.randomize(&mut visitor.rng);
     }
 }
 
