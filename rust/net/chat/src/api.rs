@@ -28,6 +28,10 @@ pub mod usernames;
 #[repr(transparent)]
 pub struct Unauth<T>(pub T);
 
+impl<T> Unauth<T> {
+    pub(crate) const LOG_TAG: &'static str = "unauth";
+}
+
 impl<'a, T> From<&'a T> for &'a Unauth<T> {
     fn from(value: &'a T) -> Self {
         Unauth::ref_cast(value)
@@ -41,6 +45,10 @@ impl<'a, T> From<&'a T> for &'a Unauth<T> {
 #[repr(transparent)]
 pub struct Auth<T>(pub T);
 
+impl<T> Auth<T> {
+    pub(crate) const LOG_TAG: &'static str = "auth";
+}
+
 impl<'a, T> From<&'a T> for &'a Auth<T> {
     fn from(value: &'a T) -> Self {
         Auth::ref_cast(value)
@@ -50,6 +58,10 @@ impl<'a, T> From<&'a T> for &'a Auth<T> {
 /// Marker wrapper for registration connections.
 #[derive(derive_more::Deref)]
 pub struct Registration<T>(pub T);
+
+impl<T> Registration<T> {
+    pub(crate) const LOG_TAG: &'static str = "reg";
+}
 
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
 pub enum AllowRateLimitChallenges {

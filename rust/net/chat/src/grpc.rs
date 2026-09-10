@@ -173,7 +173,7 @@ where
 ///
 /// ```ignored
 /// send_request_with_streaming_response(
-///     "unauth",
+///     Self::LOG_TAG,
 ///     self.grpc_service(),
 ///     || Ok(SomeRequest { id: validate_id(id_param)? }),
 ///     |service, request| async move {

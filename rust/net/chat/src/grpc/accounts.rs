@@ -270,7 +270,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
         let request = DeleteAccountRequest {};
         let desc = Redact(&request).to_string();
         let DeleteAccountResponse {} =
-            log_and_send("auth", &desc, || client.delete_account(request))
+            log_and_send(Self::LOG_TAG, &desc, || client.delete_account(request))
                 .await?
                 .into_inner();
         Ok(())
@@ -297,10 +297,11 @@ impl<T: GrpcServiceProvider> Auth<T> {
             registration_lock: svr_key.derive_registration_lock().to_vec(),
         };
         let desc = Redact(&request).to_string();
-        let SetRegistrationLockResponse {} =
-            log_and_send("auth", &desc, || client.set_registration_lock(request))
-                .await?
-                .into_inner();
+        let SetRegistrationLockResponse {} = log_and_send(Self::LOG_TAG, &desc, || {
+            client.set_registration_lock(request)
+        })
+        .await?
+        .into_inner();
         Ok(())
     }
 
@@ -316,10 +317,11 @@ impl<T: GrpcServiceProvider> Auth<T> {
         let mut client = AccountsClient::new(self.0.service());
         let request = ClearRegistrationLockRequest {};
         let desc = Redact(&request).to_string();
-        let ClearRegistrationLockResponse {} =
-            log_and_send("auth", &desc, || client.clear_registration_lock(request))
-                .await?
-                .into_inner();
+        let ClearRegistrationLockResponse {} = log_and_send(Self::LOG_TAG, &desc, || {
+            client.clear_registration_lock(request)
+        })
+        .await?
+        .into_inner();
         Ok(())
     }
 
@@ -353,7 +355,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
             registration_recovery_password: registration_recovery_password.to_vec(),
         };
         let desc = Redact(&request).to_string();
-        let SetRegistrationRecoveryPasswordResponse {} = log_and_send("auth", &desc, || {
+        let SetRegistrationRecoveryPasswordResponse {} = log_and_send(Self::LOG_TAG, &desc, || {
             client.set_registration_recovery_password(request)
         })
         .await?
@@ -374,7 +376,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
             discoverable_by_phone_number: discoverable,
         };
         let desc = Redact(&request).to_string();
-        let SetDiscoverableByPhoneNumberResponse {} = log_and_send("auth", &desc, || {
+        let SetDiscoverableByPhoneNumberResponse {} = log_and_send(Self::LOG_TAG, &desc, || {
             client.set_discoverable_by_phone_number(request)
         })
         .await?
@@ -401,7 +403,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
         let request = GenerateTotpKeyRequest {};
         let desc = Redact(&request).to_string();
         let GenerateTotpKeyResponse { response } =
-            log_and_send("auth", &desc, || client.generate_totp_key(request))
+            log_and_send(Self::LOG_TAG, &desc, || client.generate_totp_key(request))
                 .await?
                 .into_inner();
 
@@ -465,7 +467,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
         };
         let desc = Redact(&request).to_string();
         let ConfirmTotpKeyResponse { response } =
-            log_and_send("auth", &desc, || client.confirm_totp_key(request))
+            log_and_send(Self::LOG_TAG, &desc, || client.confirm_totp_key(request))
                 .await?
                 .into_inner();
 
@@ -516,7 +518,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
         let request = ListMfaKeysRequest {};
         let desc = Redact(&request).to_string();
         let ListMfaKeysResponse { keys } =
-            log_and_send("auth", &desc, || client.list_mfa_keys(request))
+            log_and_send(Self::LOG_TAG, &desc, || client.list_mfa_keys(request))
                 .await?
                 .into_inner();
 
@@ -564,10 +566,11 @@ impl<T: GrpcServiceProvider> Auth<T> {
             metadata_ciphertext: metadata.encrypt(svr_key, rng).as_bytes().to_vec(),
         };
         let desc = Redact(&request).to_string();
-        let SetMfaKeyMetadataResponse { response } =
-            log_and_send("auth", &desc, || client.set_mfa_key_metadata(request))
-                .await?
-                .into_inner();
+        let SetMfaKeyMetadataResponse { response } = log_and_send(Self::LOG_TAG, &desc, || {
+            client.set_mfa_key_metadata(request)
+        })
+        .await?
+        .into_inner();
 
         match response.ok_or_else(|| RequestError::Unexpected {
             log_safe: "missing response".to_string(),
@@ -591,7 +594,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
         };
         let desc = Redact(&request).to_string();
         let RemoveMfaKeyResponse {} =
-            log_and_send("auth", &desc, || client.remove_mfa_key(request))
+            log_and_send(Self::LOG_TAG, &desc, || client.remove_mfa_key(request))
                 .await?
                 .into_inner();
         Ok(())

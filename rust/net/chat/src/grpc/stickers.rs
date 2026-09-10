@@ -36,9 +36,11 @@ impl<T: GrpcServiceProvider> Auth<T> {
             pack_id,
             manifest_upload_form,
             sticker_upload_forms,
-        } = log_and_send("auth", &desc, || client.get_sticker_upload_form(request))
-            .await?
-            .into_inner();
+        } = log_and_send(Self::LOG_TAG, &desc, || {
+            client.get_sticker_upload_form(request)
+        })
+        .await?
+        .into_inner();
 
         if sticker_upload_forms.len()
             != usize::try_from(number_of_stickers)

@@ -50,7 +50,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
             aci_kem_pre_key_count,
             pni_ec_pre_key_count,
             pni_kem_pre_key_count,
-        } = log_and_send("auth", &desc, || client.get_pre_key_count(request))
+        } = log_and_send(Self::LOG_TAG, &desc, || client.get_pre_key_count(request))
             .await?
             .into_inner();
         Ok(PreKeyCounts {

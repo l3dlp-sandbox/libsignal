@@ -69,10 +69,11 @@ impl<T: GrpcServiceProvider> Unauth<T> {
             passwords: credentials,
         };
         let desc = Redact(&request).to_string();
-        let CheckSvrCredentialsResponse { matches } =
-            log_and_send("unauth", &desc, || client.check_svr_credentials(request))
-                .await?
-                .into_inner();
+        let CheckSvrCredentialsResponse { matches } = log_and_send(Self::LOG_TAG, &desc, || {
+            client.check_svr_credentials(request)
+        })
+        .await?
+        .into_inner();
         let mut out = HashMap::with_capacity(matches.len());
         for (k, v) in matches.into_iter() {
             out.insert(

@@ -49,9 +49,11 @@ impl<T: GrpcServiceProvider> Auth<T> {
         let GetCurrencyConversionsResponse {
             timestamp,
             currencies,
-        } = log_and_send("auth", &desc, || client.get_currency_conversions(request))
-            .await?
-            .into_inner();
+        } = log_and_send(Self::LOG_TAG, &desc, || {
+            client.get_currency_conversions(request)
+        })
+        .await?
+        .into_inner();
         Ok(CurrencyConversions {
             timestamp_ms: Timestamp::from_epoch_millis(timestamp),
             currencies: currencies

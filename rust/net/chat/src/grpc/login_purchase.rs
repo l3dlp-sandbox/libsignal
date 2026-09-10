@@ -139,7 +139,7 @@ impl<T: GrpcServiceProvider> Unauth<T> {
             ),
         };
         let desc = Redact(&request).to_string();
-        match log_and_send("unauth", &desc, || {
+        match log_and_send(Self::LOG_TAG, &desc, || {
             client.create_login_receipt_credential(request)
         })
         .await?

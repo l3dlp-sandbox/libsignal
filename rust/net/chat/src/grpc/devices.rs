@@ -144,7 +144,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
             id: id.into(),
         };
         let desc = Redact(&request).to_string();
-        match log_and_send("auth", &desc, || client.set_device_name(request))
+        match log_and_send(Self::LOG_TAG, &desc, || client.set_device_name(request))
             .await?
             .into_inner()
             .response
@@ -173,9 +173,10 @@ impl<T: GrpcServiceProvider> Auth<T> {
         let mut client = DevicesClient::new(self.0.service());
         let request = RemoveDeviceRequest { id: id.into() };
         let desc = Redact(&request).to_string();
-        let RemoveDeviceResponse {} = log_and_send("auth", &desc, || client.remove_device(request))
-            .await?
-            .into_inner();
+        let RemoveDeviceResponse {} =
+            log_and_send(Self::LOG_TAG, &desc, || client.remove_device(request))
+                .await?
+                .into_inner();
         Ok(())
     }
 
@@ -184,7 +185,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
         let mut client = DevicesClient::new(self.0.service());
         let request = GetDevicesRequest {};
         let desc = Redact(&request).to_string();
-        log_and_send("auth", &desc, || client.get_devices(request))
+        log_and_send(Self::LOG_TAG, &desc, || client.get_devices(request))
             .await?
             .into_inner()
             .devices
@@ -263,7 +264,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
         };
         let desc = Redact(&request).to_string();
         let SetPushTokenResponse {} =
-            log_and_send("auth", &desc, || client.set_push_token(request))
+            log_and_send(Self::LOG_TAG, &desc, || client.set_push_token(request))
                 .await?
                 .into_inner();
         Ok(())
@@ -294,7 +295,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
         let request = SetCapabilitiesRequest { capabilities };
         let desc = Redact(&request).to_string();
         let SetCapabilitiesResponse {} =
-            log_and_send("auth", &desc, || client.set_capabilities(request))
+            log_and_send(Self::LOG_TAG, &desc, || client.set_capabilities(request))
                 .await?
                 .into_inner();
         Ok(())
@@ -309,7 +310,7 @@ impl<T: GrpcServiceProvider> Auth<T> {
         let request = ClearPushTokenRequest {};
         let desc = Redact(&request).to_string();
         let ClearPushTokenResponse {} =
-            log_and_send("auth", &desc, || client.clear_push_token(request))
+            log_and_send(Self::LOG_TAG, &desc, || client.clear_push_token(request))
                 .await?
                 .into_inner();
         Ok(())

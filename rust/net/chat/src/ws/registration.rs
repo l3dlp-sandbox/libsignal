@@ -88,7 +88,7 @@ where
         // This request's path is always static, so it's safe to log.
         let response = self
             .0
-            .send("reg", &request.path.to_string(), request)
+            .send(Self::LOG_TAG, &request.path.to_string(), request)
             .await
             .map_err(SendError::into_request_error)?;
         let response: crate::ws::registration::request::RegistrationResponse =
@@ -219,7 +219,7 @@ where
         // This request's path is always static, so it's safe to log.
         let response = self
             .0
-            .send("reg", &request.path.to_string(), request)
+            .send(Self::LOG_TAG, &request.path.to_string(), request)
             .await
             .map_err(SendError::into_request_error)?;
         response.try_into_response().map_err(Into::into)
@@ -250,7 +250,7 @@ where
         // This request's path is always static, so it's safe to log.
         let response = self
             .0
-            .send("reg", &request.path.to_string(), request)
+            .send(Self::LOG_TAG, &request.path.to_string(), request)
             .await
             .map_err(SendError::into_request_error)?;
 
@@ -287,7 +287,11 @@ where
     C: WsClient<SendError: SendError> + Sync,
 {
     let response = connection
-        .send("reg", &request.log_safe_path(), request.into())
+        .send(
+            Registration::<()>::LOG_TAG,
+            &request.log_safe_path(),
+            request.into(),
+        )
         .await
         .map_err(SendError::into_request_error)?;
     let response: RegistrationResponse = response.try_into_response()?;
