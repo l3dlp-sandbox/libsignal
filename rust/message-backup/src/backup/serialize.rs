@@ -391,6 +391,12 @@ impl serde::Serialize for proto::learned_profile_chat_update::PreviousName {
                 tv.serialize_field(username)?;
                 tv.end()
             }
+            proto::learned_profile_chat_update::PreviousName::SharedName(shared_name) => {
+                let mut tv =
+                    serializer.serialize_tuple_variant("PreviousName", 2, "SharedName", 1)?;
+                tv.serialize_field(shared_name)?;
+                tv.end()
+            }
         }
     }
 }

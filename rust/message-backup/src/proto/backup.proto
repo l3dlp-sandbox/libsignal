@@ -1066,6 +1066,7 @@ message LearnedProfileChatUpdate {
   oneof previousName {
     uint64 e164 = 1;
     string username = 2;
+    string sharedName = 3;
   }
 }
 

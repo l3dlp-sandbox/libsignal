@@ -1918,6 +1918,7 @@ impl Visit<Scrambler> for proto::LearnedProfileChatUpdate {
             match name {
                 PreviousName::E164(e164) => visitor.replace_e164(e164),
                 PreviousName::Username(username) => *username = visitor.next_username(),
+                PreviousName::SharedName(shared_name) => shared_name.randomize(&mut visitor.rng),
             }
         }
     }
