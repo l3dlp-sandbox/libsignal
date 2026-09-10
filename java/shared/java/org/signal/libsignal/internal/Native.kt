@@ -1792,6 +1792,18 @@ internal object Native {
   public external fun MessageBackupKey_GetHmacKey(key: ObjectHandle): ByteArray
 
   @JvmStatic
+  public external fun MessageBackupSizing_FlushInterval(
+    uncompressedLen: Long,
+    estimatedTotalUncompressedLen: Long,
+  ): Long
+
+  @JvmStatic
+  public external fun MessageBackupSizing_PaddingSize(
+    maxIntervalBytes: Long,
+    compressedLen: Long,
+  ): Long
+
+  @JvmStatic
   @Throws(Exception::class)
   public external fun MessageBackupValidator_Validate(
     key: ObjectHandle,

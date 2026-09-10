@@ -5099,6 +5099,16 @@ SignalFfiError* signal_message_backup_key_get_hmac_key(
   SignalType_FixedArray32_uint8_t* out,
   SignalConstPointerMessageBackupKey key
 );
+SignalFfiError* signal_message_backup_sizing_flush_interval(
+  uint64_t* out,
+  uint64_t uncompressed_len,
+  uint64_t estimated_total_uncompressed_len
+);
+SignalFfiError* signal_message_backup_sizing_padding_size(
+  uint64_t* out,
+  uint64_t max_interval_bytes,
+  uint64_t compressed_len
+);
 SignalFfiError* signal_message_backup_validation_outcome_destroy(
   SignalMutPointerMessageBackupValidationOutcome p
 );

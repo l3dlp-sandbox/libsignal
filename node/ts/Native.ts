@@ -1965,6 +1965,14 @@ type NativeFunctions = {
   MessageBackupKey_GetHmacKey: (
     key: Wrapper<MessageBackupKey>
   ) => Uint8Array<ArrayBuffer>;
+  MessageBackupSizing_FlushInterval: (
+    uncompressed_len: bigint,
+    estimated_total_uncompressed_len: bigint
+  ) => bigint;
+  MessageBackupSizing_PaddingSize: (
+    max_interval_bytes: bigint,
+    compressed_len: bigint
+  ) => bigint;
   MessageBackupValidator_Validate: (
     key: Wrapper<MessageBackupKey>,
     first_stream: InputStream,
@@ -4048,6 +4056,8 @@ const {
   MessageBackupKey_FromBackupKeyAndBackupId,
   MessageBackupKey_GetAesKey,
   MessageBackupKey_GetHmacKey,
+  MessageBackupSizing_FlushInterval,
+  MessageBackupSizing_PaddingSize,
   MessageBackupValidator_Validate,
   MinidumpToJSONString,
   Mp4Sanitizer_Sanitize,
@@ -4839,6 +4849,8 @@ export {
   MessageBackupKey_FromBackupKeyAndBackupId,
   MessageBackupKey_GetAesKey,
   MessageBackupKey_GetHmacKey,
+  MessageBackupSizing_FlushInterval,
+  MessageBackupSizing_PaddingSize,
   MessageBackupValidator_Validate,
   MinidumpToJSONString,
   Mp4Sanitizer_Sanitize,
