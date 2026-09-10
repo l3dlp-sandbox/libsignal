@@ -1116,13 +1116,6 @@ type NativeFunctions = {
     online_only: boolean,
     is_urgent: boolean
   ) => CancellablePromise<void>;
-  AuthenticatedChatConnection_send_raw_grpc: (
-    asyncRuntime: Wrapper<TokioAsyncContext>,
-    chat: Wrapper<AuthenticatedChatConnection>,
-    service: string,
-    method: string,
-    payload: Uint8Array<ArrayBuffer>
-  ) => CancellablePromise<Uint8Array<ArrayBuffer>>;
   AuthenticatedChatConnection_send_sync_message: (
     asyncRuntime: Wrapper<TokioAsyncContext>,
     chat: Wrapper<AuthenticatedChatConnection>,
@@ -3700,13 +3693,6 @@ type NativeFunctions = {
     online_only: boolean,
     is_urgent: boolean
   ) => CancellablePromise<Array<Uint8Array<ArrayBuffer>>>;
-  UnauthenticatedChatConnection_send_raw_grpc: (
-    asyncRuntime: Wrapper<TokioAsyncContext>,
-    chat: Wrapper<UnauthenticatedChatConnection>,
-    service: string,
-    method: string,
-    payload: Uint8Array<ArrayBuffer>
-  ) => CancellablePromise<Uint8Array<ArrayBuffer>>;
   UnauthenticatedChatConnection_submit_call_quality_survey: (
     asyncRuntime: Wrapper<TokioAsyncContext>,
     chat: Wrapper<UnauthenticatedChatConnection>,
@@ -3841,7 +3827,6 @@ const {
   AuthenticatedChatConnection_reserve_username_hash,
   AuthenticatedChatConnection_send,
   AuthenticatedChatConnection_send_message,
-  AuthenticatedChatConnection_send_raw_grpc,
   AuthenticatedChatConnection_send_sync_message,
   AuthenticatedChatConnection_set_capabilities,
   AuthenticatedChatConnection_set_device_name,
@@ -4561,7 +4546,6 @@ const {
   UnauthenticatedChatConnection_send,
   UnauthenticatedChatConnection_send_message,
   UnauthenticatedChatConnection_send_multi_recipient_message,
-  UnauthenticatedChatConnection_send_raw_grpc,
   UnauthenticatedChatConnection_submit_call_quality_survey,
   UnidentifiedSenderMessageContent_Deserialize,
   UnidentifiedSenderMessageContent_GetContentHint,
@@ -4634,7 +4618,6 @@ export {
   AuthenticatedChatConnection_reserve_username_hash,
   AuthenticatedChatConnection_send,
   AuthenticatedChatConnection_send_message,
-  AuthenticatedChatConnection_send_raw_grpc,
   AuthenticatedChatConnection_send_sync_message,
   AuthenticatedChatConnection_set_capabilities,
   AuthenticatedChatConnection_set_device_name,
@@ -5354,7 +5337,6 @@ export {
   UnauthenticatedChatConnection_send,
   UnauthenticatedChatConnection_send_message,
   UnauthenticatedChatConnection_send_multi_recipient_message,
-  UnauthenticatedChatConnection_send_raw_grpc,
   UnauthenticatedChatConnection_submit_call_quality_survey,
   UnidentifiedSenderMessageContent_Deserialize,
   UnidentifiedSenderMessageContent_GetContentHint,

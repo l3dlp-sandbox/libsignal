@@ -442,15 +442,6 @@ internal object Native {
   ): CompletableFuture<Void?>
 
   @JvmStatic
-  public external fun AuthenticatedChatConnection_send_raw_grpc(
-    asyncRuntime: ObjectHandle,
-    chat: ObjectHandle,
-    service: String,
-    method: String,
-    payload: ByteArray,
-  ): CompletableFuture<ByteArray>
-
-  @JvmStatic
   public external fun AuthenticatedChatConnection_send_sync_message_java(
     asyncRuntime: ObjectHandle,
     chat: ObjectHandle,
@@ -3395,15 +3386,6 @@ internal object Native {
     onlineOnly: Boolean,
     isUrgent: Boolean,
   ): CompletableFuture<Array<Object>>
-
-  @JvmStatic
-  public external fun UnauthenticatedChatConnection_send_raw_grpc(
-    asyncRuntime: ObjectHandle,
-    chat: ObjectHandle,
-    service: String,
-    method: String,
-    payload: ByteArray,
-  ): CompletableFuture<ByteArray>
 
   @JvmStatic
   public external fun UnauthenticatedChatConnection_submit_call_quality_survey(

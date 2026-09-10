@@ -3855,14 +3855,6 @@ SignalFfiError* signal_authenticated_chat_connection_send_message(
   bool online_only,
   bool is_urgent
 );
-SignalFfiError* signal_authenticated_chat_connection_send_raw_grpc(
-  SignalCPromiseOwnedBuffer* promise,
-  SignalConstPointerTokioAsyncContext async_runtime,
-  SignalConstPointerAuthenticatedChatConnection chat,
-  const int8_t* service,
-  const int8_t* method,
-  SignalBorrowedBuffer payload
-);
 SignalFfiError* signal_authenticated_chat_connection_send_sync_message(
   SignalCPromisebool* promise,
   SignalConstPointerTokioAsyncContext async_runtime,
@@ -6611,14 +6603,6 @@ SignalFfiError* signal_unauthenticated_chat_connection_send_multi_recipient_mess
   SignalBorrowedBuffer auth,
   bool online_only,
   bool is_urgent
-);
-SignalFfiError* signal_unauthenticated_chat_connection_send_raw_grpc(
-  SignalCPromiseOwnedBuffer* promise,
-  SignalConstPointerTokioAsyncContext async_runtime,
-  SignalConstPointerUnauthenticatedChatConnection chat,
-  const int8_t* service,
-  const int8_t* method,
-  SignalBorrowedBuffer payload
 );
 SignalFfiError* signal_unauthenticated_chat_connection_submit_call_quality_survey(
   SignalCPromisebool* promise,
